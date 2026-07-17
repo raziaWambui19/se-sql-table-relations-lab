@@ -57,7 +57,7 @@ SELECT contactFirstName, contactLastName, amount, paymentDate
 FROM customers
 INNER JOIN payments
 ON customers.customerNumber = payments.customerNumber
-ORDER BY CAST(payments.amount AS DECIMAL(10,2)) DESC;
+ORDER BY CAST(payments.amount AS REAL) DESC;
 """ ,conn)
 
 # STEP 6
