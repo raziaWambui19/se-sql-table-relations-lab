@@ -11,58 +11,58 @@ pd.read_sql("""SELECT * FROM sqlite_master""", conn)
 
 # STEP 1
 # Replace None with your code
-df_boston = """
+df_boston = pd.read_sql( """
 SELECT lastName, firstName, jobTitle
 FROM employees
 INNER JOIN offices
 ON employees.officeCode = offices.officeCode
 WHERE offices.city = 'Boston';
 """
-
+)
 # STEP 2
 # Replace None with your code
-df_zero_emp = """
+df_zero_emp = pd.read_sql("""
 SELECT offices.officeCode, offices.city
 FROM offices
 LEFT JOIN employees
 ON offices.officeCode = employees.officeCode
 WHERE employees.employeeNumber is NULL; 
-"""
+""")
 
 # STEP 3
 # Replace None with your code
-df_employee = """
+df_employee = pd.read_sql("""
 SELECT firstName, lastName, city ,state
 FROM employees
 LEFT JOIN offices
 ON  employees.officeCode = offices.officeCode
 ORDER BY firstName, LastName;
 """
-
+)
 # STEP 4
 # Replace None with your code
-df_contacts = """
+df_contacts = pd.read_sql("""
 SELECT contactFirstName, contactLastName, phone, salesRepEmployeeNumber
 FROM customers
 LEFT JOIN orders
 ON customers.customerNumber = orders.customerNumber
 WHERE orders.orderNumber IS NULL
 ORDER BY contactLastName;
-"""
+""")
 
 # STEP 5
 # Replace None with your code
-df_payment = """
+df_payment = pd.read_sql("""
 SELECT contactFirstName, contactLastName, amount, paymentDate
 FROM customers
 INNER JOIN payments
 ON customers.customerNumber = payments.customerNumber
 ORDER BY CAST(payments.amount AS DECIMAL(10,2)) DESC;
-"""
+""")
 
 # STEP 6
 # Replace None with your code
-df_credit = """
+df_credit =pd.read_sql( """
 SELECT employeeNumber, firstName, lastName, COUNT(customers.customerNumber) AS numberOfCustomers
 FROM employees
 INNER JOIN customers
@@ -70,11 +70,11 @@ ON employees.employeeNumber = customers.salesRepEmployeeNumber
 GROUP BY employees.employeeNumber, employees.firstName, employees.lastName
 HAVING AVG(customers.creditLimit) > 90000
 ORDER BY numberOfCustomers DESC;
-""" 
+""" )
 
 # STEP 7
 # Replace None with your code
-df_product_sold = """
+df_product_sold = pd.read_sql("""
 SELECT products.productName,
        COUNT (orderdetails.orderNumber) AS numorders,
        SUM (orderdetails.quantityOrdered) AS totalunits
@@ -83,11 +83,11 @@ INNER JOIN orderdetails
 On products.productCode = orderdetails.productCode
 GROUP BY products.productName
 ORDER BY totalunits DESC;
- """
+ """) 
 
 # STEP 8
 # Replace None with your code
-df_total_customers = """
+df_total_customers = pd.read_sql("""
 SELECT products.productName, products.productCode, COUNT(orders.customerNumber) AS numpurchasers
 FROM products
 INNER JOIN orderdetails
@@ -96,11 +96,11 @@ INNER JOIN orders
 ON orderdetails.orderNumber = orders.orderNumber
 GROUP BY products.productName, products.productCode
 ORDER BY numpurchasers DESC;
-"""
+""")
 
 # STEP 9
 # Replace None with your code
-df_customers = """
+df_customers = pd.read_sql("""
 SELECT offices.officeCode, offices.city, COUNT (customers.customerNumber) AS n_customers
 FROM offices
 LEFT JOIN employees
@@ -110,11 +110,11 @@ On employees.employeeNumber = customers.salesRepEmployeeNumber
 
 GROUP BY  offices.officeCode, offices.city;
 
-"""
+""")
 
 # STEP 10
 # Replace None with your code
-df_under_20 = """
+df_under_20 = pd.read_sql("""
 SELECT DISTINCT e.employeeNumber, e.firstName, e.lastName, o.city, o.officeCode
 FROM employees e
 INNER JOIN offices o
@@ -133,6 +133,6 @@ WHERE od.productCode IN (
     GROUP BY od.productcode
     HAVING COUNT(DISTINCT ord.customerNumber) < 20
 );
-"""
+""")
 
 conn.close()
