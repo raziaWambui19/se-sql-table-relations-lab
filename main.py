@@ -17,7 +17,7 @@ FROM employees
 INNER JOIN offices
 ON employees.officeCode = offices.officeCode
 WHERE offices.city = 'Boston';
-"""
+""" ,conn
 )
 # STEP 2
 # Replace None with your code
@@ -27,7 +27,7 @@ FROM offices
 LEFT JOIN employees
 ON offices.officeCode = employees.officeCode
 WHERE employees.employeeNumber is NULL; 
-""")
+""" ,conn)
 
 # STEP 3
 # Replace None with your code
@@ -37,7 +37,7 @@ FROM employees
 LEFT JOIN offices
 ON  employees.officeCode = offices.officeCode
 ORDER BY firstName, LastName;
-"""
+""" ,conn
 )
 # STEP 4
 # Replace None with your code
@@ -48,7 +48,7 @@ LEFT JOIN orders
 ON customers.customerNumber = orders.customerNumber
 WHERE orders.orderNumber IS NULL
 ORDER BY contactLastName;
-""")
+""" ,conn)
 
 # STEP 5
 # Replace None with your code
@@ -58,7 +58,7 @@ FROM customers
 INNER JOIN payments
 ON customers.customerNumber = payments.customerNumber
 ORDER BY CAST(payments.amount AS DECIMAL(10,2)) DESC;
-""")
+""" ,conn)
 
 # STEP 6
 # Replace None with your code
@@ -70,7 +70,7 @@ ON employees.employeeNumber = customers.salesRepEmployeeNumber
 GROUP BY employees.employeeNumber, employees.firstName, employees.lastName
 HAVING AVG(customers.creditLimit) > 90000
 ORDER BY numberOfCustomers DESC;
-""" )
+""" ,conn )
 
 # STEP 7
 # Replace None with your code
@@ -83,7 +83,7 @@ INNER JOIN orderdetails
 On products.productCode = orderdetails.productCode
 GROUP BY products.productName
 ORDER BY totalunits DESC;
- """) 
+ """ ,conn) 
 
 # STEP 8
 # Replace None with your code
@@ -96,7 +96,7 @@ INNER JOIN orders
 ON orderdetails.orderNumber = orders.orderNumber
 GROUP BY products.productName, products.productCode
 ORDER BY numpurchasers DESC;
-""")
+""" ,conn)
 
 # STEP 9
 # Replace None with your code
@@ -110,7 +110,7 @@ On employees.employeeNumber = customers.salesRepEmployeeNumber
 
 GROUP BY  offices.officeCode, offices.city;
 
-""")
+""" ,conn)
 
 # STEP 10
 # Replace None with your code
@@ -133,6 +133,6 @@ WHERE od.productCode IN (
     GROUP BY od.productcode
     HAVING COUNT(DISTINCT ord.customerNumber) < 20
 );
-""")
+""" ,conn)
 
 conn.close()
